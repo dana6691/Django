@@ -3,7 +3,10 @@ Three components of this project is UI (html, css, js, bootstrap), and backend i
 
 1. Database Design
 2. Build Backend
+    i. 
+    ii.
 3. Build Frontend
+    i. fetch data from database and display in HTML
 
 3 layers of this application
 	- UI (front end)
