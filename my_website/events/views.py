@@ -12,30 +12,40 @@ import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
+
 # Generate a PDF File Venue List
 def venue_pdf(request):
-    # Create Bytestream buffer
-    buf = io.BytesIO()
-    # Create a canvas
-    c = canvas.Canvas(buf, pagesize=letter, buttomup=0)
-    # Creat a text object
-    textob = c.beginText()
-    textob.setTextOrigin(inch,inch)
-    textob.setFont("Helvetica",14)
-    # Add some line of text
-    lines = [
-        
-    ]
-    # Loop
-    for line in lines:
-        textob.textLine(line)
-    # Finish up
-    c.drawText(textob)
-    c.showPage()
-    c.save()
-    buf.seek(0)
-    # Retrun
-    return FileResponse(buf, as_attachment=True,filename='venue.pdf')
+    	# Create Bytestream buffer
+	buf = io.BytesIO()
+	# Create a canvas
+	c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+	# Create a text object
+	textob = c.beginText()
+	textob.setTextOrigin(inch, inch)
+	textob.setFont("Helvetica", 14)
+	
+	# Designate The Model
+	venues = Venue.objects.all()
+	# Create blank list
+	lines = []
+	for venue in venues:
+		lines.append(venue.name)
+		lines.append(venue.address)
+		lines.append(venue.zip_code)
+		lines.append(venue.phone)
+		lines.append(venue.web)
+		lines.append(venue.email_address)
+		lines.append(" ")
+	# Loop
+	for line in lines:
+		textob.textLine(line)
+	# Finish Up
+	c.drawText(textob)
+	c.showPage()
+	c.save()
+	buf.seek(0)
+	# Return 
+	return FileResponse(buf, as_attachment=True, filename='venue.pdf')
     
     
 # Generate CSV files from Venue List

@@ -1,25 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">My Website</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Event Management</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' '2021' 'April'%}">Link</a>
+            <a class="nav-link" href="{% url 'home' '2021' 'April'%}">Calendar</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'list-events'%}">Events</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Venue
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              <li><a class="dropdown-item" href="{% url 'list-venues'%}">All Venues</a></li>
+              <li><a class="dropdown-item" href="{% url 'add-venue'%}">Add Venue</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'add-event'%}">Add Event</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'add-venue'%}">Add Venue</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'list-venues'%}">Venues</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              <li><a class="dropdown-item" href="{% url 'list-events'%}">All Events</a></li>
+              <li><a class="dropdown-item" href="% url 'add-event'%}">Add Event</a></li>
+            </ul>
           </li>
         </ul>
         <form class="d-flex" method=POST action="{% url 'search-venues' %}">
@@ -27,6 +33,12 @@
           <input class="form-control me-2" type="search" placeholder="Search Venues" aria-label="Search" name="searched">
           <button class="btn btn-outline-secondary" type="submit">Search</button>
         </form>
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'logout'%}"><button class="btn btn-secondary" type="submit">Logout</button></a>
+        {% else %}
+        <a class="nav-link" href="{% url 'register-user'%}"><button class="btn btn-secondary" type="submit">Register</button></a>
+        <a class="nav-link" href="{% url 'login'%}"><button class="btn btn-secondary" type="submit">Login</button></a>
+        {% endif %}
       </div>
     </div>
   </nav>
