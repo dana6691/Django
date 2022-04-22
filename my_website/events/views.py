@@ -1,10 +1,30 @@
+from importlib.resources import contents
 from django.shortcuts import redirect, render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Event, Venue
 from .forms import VenueForm, EventForm
+import csv
+
+# Generate a PDF File Venue List
+def venue_pdf(request):
+    
+# Generate CSV files from Venue List
+def venue_csv(request):
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename=venues.csv'
+	# Create a csv writer
+	writer = csv.writer(response)
+	# Designate The Model
+	venues = Venue.objects.all()
+	# Add column headings to the csv file
+	writer.writerow(['Venue Name', 'Address', 'Zip Code', 'Phone', 'Web Address', 'Email'])
+	# Loop Thu and output
+	for venue in venues:
+		writer.writerow([venue.name, venue.address, venue.zip_code, venue.phone, venue.web, venue.email_address])
+	return response
 
 # Delete an Venue
 def delete_venue(request, venue_id):
