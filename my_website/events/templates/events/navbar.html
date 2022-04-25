@@ -36,7 +36,7 @@
         {% if user.is_authenticated %}
         <a class="nav-link" href="{% url 'logout'%}"><button class="btn btn-secondary" type="submit">Logout</button></a>
         {% else %}
-        <a class="nav-link" href="{% url 'register-user'%}"><button class="btn btn-secondary" type="submit">Register</button></a>
+        <a class="nav-link" href="{% url 'register_user'%}"><button class="btn btn-secondary" type="submit">Register</button></a>
         <a class="nav-link" href="{% url 'login'%}"><button class="btn btn-secondary" type="submit">Login</button></a>
         {% endif %}
       </div>
